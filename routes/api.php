@@ -28,12 +28,15 @@ Route::prefix('v1')->group(function () {
     Route::post('/register', [UserAuthController::class, 'register']);
     Route::post('/login', [UserAuthController::class, 'login']);
 
-    //Articles
+    Route::group(['middleware' => 'auth:api'], function() {
+        //Articles
     Route::post('/articles/create', [ArticlesController::class, 'create']);
     Route::get('/articles/all', [ArticlesController::class, 'all']);
     Route::get('/articles/detail/{articlesId}', [ArticlesController::class, 'detail']);
     Route::post('/articles/update', [ArticlesController::class, 'update']);
     Route::post('/articles/delete', [ArticlesController::class, 'delete']);
+    });
+    
 
 });
 
